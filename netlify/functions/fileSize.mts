@@ -29,7 +29,9 @@ export default async (req: Request, context: Context) => {
       );
     }
 
-    return new Response(JSON.stringify({ fileSize }));
+    return new Response(JSON.stringify({ fileSize }), {
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }));
   }
