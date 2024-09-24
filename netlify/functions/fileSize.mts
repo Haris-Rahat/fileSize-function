@@ -1,6 +1,17 @@
 import type { Context } from "@netlify/functions";
 
 export default async (req: Request, context: Context) => {
+  // const res = new Response();
+  // res.headers.set("Access-Control-Allow-Origin", "*");
+  // res.headers.set(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, PUT, DELETE, OPTIONS"
+  // );
+  // res.headers.set(
+  //   "Access-Control-Allow-Headers",
+  //   "Content-Type, Authorization"
+  // );
+
   try {
     const { fileLink } = await req.json();
     if (!fileLink) {
@@ -30,7 +41,11 @@ export default async (req: Request, context: Context) => {
     }
 
     return new Response(JSON.stringify({ fileSize }), {
-      headers: { "Access-Control-Allow-Origin": "*" },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }));
